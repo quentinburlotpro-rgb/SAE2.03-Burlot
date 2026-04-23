@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/base.css" />
+    <link rel="stylesheet" href="./component/Movie/style.css" />
   </head>
 
   <body>
@@ -14,6 +15,8 @@
 
     <script type="module">
       import { NavBar } from "./component/NavBar/script.js";
+      import { Movie } from "./component/Movie/script.js";
+      import { DataMovie } from "./data/dataMovie.js";
 
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
@@ -26,8 +29,19 @@
         );
       };
 
+      /**
+       * C.loadMovies
+       * 
+       * Récupère la liste des films depuis le serveur et les affiche.
+       */
+      C.loadMovies = async function () {
+        const movies = await DataMovie.requestMovies();
+        V.renderMovies(movies);
+      };
+
       C.start = function () {
         V.renderNavBar("C.handlerAbout()");
+        C.loadMovies();
       };
 
       // Vue (contient tout ce qui est relatif à l'affichage)
@@ -43,6 +57,18 @@
       V.renderNavBar = function (hAbout) {
         let header = document.querySelector("#header");
         header.innerHTML = NavBar.format(hAbout);
+      };
+
+      /**
+       * V.renderMovies
+       * 
+       * Cette fonction affiche la liste des films dans la section "content".
+       * Elle utilise le composant Movie pour formater les données.
+       * @param {Array} movies - Le tableau des films à afficher
+       */
+      V.renderMovies = function (movies) {
+        let content = document.querySelector("#content");
+        content.innerHTML = Movie.format(movies);
       };
 
       C.start(); // Démarre l'application
