@@ -49,19 +49,19 @@
         V.renderLog("Démarrage de l'application admin");
       };
 
-      V.renderForm = function() {
-        let formSection = document.querySelector("#form");
-        formSection.innerHTML = MovieForm.format();
-        
-        // Ajoute l'event listener au formulaire
-        let form = document.querySelector("#movieForm");
-        form.addEventListener("submit", C.handlerAddMovie);
-      };
-
       V.renderLog = function(txt) {
         let logSection = document.querySelector("#log");
         logSection.innerHTML = Log.format(txt);
       };
+
+      V.renderForm = function() {
+        let formSection = document.querySelector("#form");
+        formSection.innerHTML = MovieForm.format();
+        
+        let form = document.querySelector("#movieForm");
+        form.addEventListener("submit", C.handlerAddMovie);
+      };
+
 
       C.start();
     </script>
