@@ -5,24 +5,83 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/base.css" />
+    <link rel="stylesheet" href="./component/MovieForm/style.css" />
   </head>
+
   <body>
+    <section id="form"></section>
     <section id="log"></section>
 
     <script type="module">
       import { Log } from "./component/Log/script.js";
+      import { MovieForm } from "./component/MovieForm/script.js";
+      import { DataMovie } from "./data/dataMovie.js";
 
       window.C = {};
-
-      C.start = function () {
-        V.renderLog("Démarrage de l'application");
-      };
-
       window.V = {};
 
-      V.renderLog = function (txt) {
-        let content = document.querySelector("#log");
-        content.innerHTML = Log.format(txt);
+      /**
+       * C.handlerAddMovie
+       * 
+       * Récupère les données du formulaire et les envoie au serveur
+       * @param {Event} event - Événement du formulaire
+       */
+      C.handlerAddMovie = async function(event) {
+        event.preventDefault();
+        
+        // Récupère les données du formulaire
+        const movieData = MovieForm.getData("movieForm");
+        
+        // Affiche un message de chargement
+        V.renderLog("Envoi du formulaire...");
+        
+        try {
+          // Envoie les données au serveur
+          const response = await DataMovie.add(movieData);
+          
+          // Vérifier si la réponse est un tableau (données) ou un message d'erreur
+          if (response.error) {
+            V.renderLog("❌ Erreur: " + response.error);
+          } else if (response.success) {
+            V.renderLog("✅ " + response.success);
+            // Réinitialise le formulaire
+            MovieForm.reset("movieForm");
+          } else {
+            V.renderLog("✅ Film ajouté avec succès!");
+            MovieForm.reset("movieForm");
+          }
+        } catch (error) {
+          V.renderLog("❌ Erreur de connexion: " + error.message);
+        }
+      };
+
+      C.start = function() {
+        V.renderForm();
+        V.renderLog("Démarrage de l'application admin");
+      };
+
+      /**
+       * V.renderForm
+       * 
+       * Affiche le formulaire d'ajout de film
+       */
+      V.renderForm = function() {
+        let formSection = document.querySelector("#form");
+        formSection.innerHTML = MovieForm.format();
+        
+        // Ajoute l'event listener au formulaire
+        let form = document.querySelector("#movieForm");
+        form.addEventListener("submit", C.handlerAddMovie);
+      };
+
+      /**
+       * V.renderLog
+       * 
+       * Affiche un message dans le log
+       */
+      V.renderLog = function(txt) {
+        let logSection = document.querySelector("#log");
+        logSection.innerHTML = Log.format(txt);
       };
 
       C.start();
