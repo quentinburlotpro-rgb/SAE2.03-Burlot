@@ -18,22 +18,14 @@
       import { Movie } from "./component/Movie/script.js";
       import { DataMovie } from "./data/dataMovie.js";
 
-      // Controleur
-      // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
-      // Une fois l'application terminée, on pourrait remettre let C.
       window.C = {};
 
       C.handlerAbout = function () {
         alert(
-          "Ceci est une base de projet pour la SAE2.03 édition 2025. Bonne chance !"
+          "Ceci est une base de projet pour la SAE2.03 édition 2026. Bonne chance !"
         );
       };
 
-      /**
-       * C.loadMovies
-       * 
-       * Récupère la liste des films depuis le serveur et les affiche.
-       */
       C.loadMovies = async function () {
         const movies = await DataMovie.requestMovies();
         V.renderMovies(movies);
@@ -44,34 +36,19 @@
         C.loadMovies();
       };
 
-      // Vue (contient tout ce qui est relatif à l'affichage)
       window.V = {};
 
-      /**
-       * V.renderNavBar
-       *
-       * Cette fonction est responsable de l'affichage de la barre de navigation (NavBar).
-       * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
-       * formaté par le composant NavBar.
-       */
       V.renderNavBar = function (hAbout) {
         let header = document.querySelector("#header");
         header.innerHTML = NavBar.format(hAbout);
       };
 
-      /**
-       * V.renderMovies
-       * 
-       * Cette fonction affiche la liste des films dans la section "content".
-       * Elle utilise le composant Movie pour formater les données.
-       * @param {Array} movies - Le tableau des films à afficher
-       */
       V.renderMovies = function (movies) {
         let content = document.querySelector("#content");
-        content.innerHTML = Movie.format(movies);
+        content.innerHTML = Movie.formatMany(movies);
       };
 
-      C.start(); // Démarre l'application
+      C.start();
     </script>
   </body>
 </html>
