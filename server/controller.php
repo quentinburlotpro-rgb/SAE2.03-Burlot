@@ -1,13 +1,11 @@
 <?php
+require_once 'model.php';
 
-
-require("model.php");
-
-
-function readMoviesController(){
-    $movies = getAllMovies();
+function readMoviesController() {
+    $movies = getMovies();
     return $movies;
 }
+
 
 function addMovieController(){
     $requiredFields = ['name', 'director', 'year', 'length', 'description', 'id_category', 'image', 'min_age'];

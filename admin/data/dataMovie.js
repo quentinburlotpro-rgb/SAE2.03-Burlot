@@ -9,12 +9,14 @@ DataMovie.add = async function(movieData){
         formData.append(key, movieData[key]);
     });
     
-    const response = await fetch(HOST_URL + "/server/script.php?todo=addmovie", {
+    const response = await fetch(HOST_URL + "/script.php?todo=addmovie", {
         method: 'POST',
         body: formData
     });
     
     const data = await response.json();
+    console.log(data);
+    
     return data;
 }
 

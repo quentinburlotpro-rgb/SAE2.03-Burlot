@@ -15,7 +15,6 @@
 
     <script type="module">
       import { NavBar } from "./component/NavBar/script.js";
-      import { Movie } from "./component/Movie/script.js";
       import { DataMovie } from "./data/dataMovie.js";
 
       window.C = {};
@@ -26,14 +25,8 @@
         );
       };
 
-      C.loadMovies = async function () {
-        const movies = await DataMovie.requestMovies();
-        V.renderMovies(movies);
-      };
-
       C.start = function () {
         V.renderNavBar("C.handlerAbout()");
-        C.loadMovies();
       };
 
       window.V = {};
@@ -43,12 +36,8 @@
         header.innerHTML = NavBar.format(hAbout);
       };
 
-      V.renderMovies = function (movies) {
-        let content = document.querySelector("#content");
-        content.innerHTML = Movie.formatMany(movies);
-      };
-
       C.start();
     </script>
   </body>
 </html>
+<script type="module"></script>

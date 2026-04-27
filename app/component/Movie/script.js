@@ -1,12 +1,18 @@
-let templateFile = await fetch("./component/Movie/template.html");
-let template = await templateFile.text();
+let template;
 
-let Movie = {};
+const Movie = {};
+
+// Charge le template une seule fois au démarrage du module
+async function initTemplate() {
+      let templateFile = await fetch("./component/Movie/template.html");
+      template = await templateFile.text();
+}
 
 Movie.format = function (movie) {
       let movieHtml = template;
       movieHtml = movieHtml.replaceAll("{{title}}", movie.name);
       movieHtml = movieHtml.replaceAll("{{image}}", movie.image);
+      movieHtml = movieHtml.replaceAll("{{id}}", movie.id);
       return movieHtml;
 };
 
@@ -21,5 +27,7 @@ Movie.formatMany = function (movies) {
       allMoviesHtml += '</div>';
       return allMoviesHtml;
 };
+
+await initTemplate();
 
 export { Movie };

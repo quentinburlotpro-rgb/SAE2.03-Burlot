@@ -3,15 +3,12 @@ define("HOST", "mmi.unilim.fr");
 define("DBNAME", "burlot4");
 define("DBLOGIN", "burlot4");
 define("DBPWD", "burlot4");
+$pdo = new PDO('mysql:host='.HOST.';dbname='.DBNAME.';charset=utf8', DBLOGIN, DBPWD);
 
 
-function getAllMovies(){
-    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
-    $sql = "select id, name, image from `SAE-Movie`";
-    $stmt = $cnx->prepare($sql);
-    $stmt->execute();
-    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
-    return $res;
+function getMovies() {
+    $stmt = $pdo->query("SELECT name, image, affiche FROM `SAE-Movie`");
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function addMovie($name, $director, $year, $length, $description, $id_category, $image, $trailer, $min_age){
