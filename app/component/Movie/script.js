@@ -1,33 +1,23 @@
-let template;
-
 const Movie = {};
+let template = await (await fetch("./component/Movie/template.html")).text();
 
-// Charge le template une seule fois au démarrage du module
-async function initTemplate() {
-      let templateFile = await fetch("./component/Movie/template.html");
-      template = await templateFile.text();
-}
-
-Movie.format = function (movie) {
-      let movieHtml = template;
-      movieHtml = movieHtml.replaceAll("{{title}}", movie.name);
-      movieHtml = movieHtml.replaceAll("{{image}}", movie.image);
-      movieHtml = movieHtml.replaceAll("{{id}}", movie.id);
-      return movieHtml;
+Movie.format = function(movie, favIds = []) {
+    let isFav = favIds.includes(parseInt(movie.id));
+    let html = template;
+    html = html.replaceAll('{{id}}', movie.id);
+    html = html.replaceAll('{{name}}', movie.name);
+    html = html.replace('{{image}}', "../server/images/" + movie.image);
+    html = html.replace('{{favClass}}', isFav ? 'active' : '');
+    html = html.replace('{{fillColor}}', isFav ? 'currentColor' : 'none');
+    return html;
 };
 
-Movie.formatMany = function (movies) {
-      if (!movies || movies.length === 0) {
-            return '<div class="movie-list"><div class="movie-list__empty">Aucun film trouvé.</div></div>';
-      }
-      let allMoviesHtml = '<div class="movie-list">';
-      for (let movie of movies) {
-            allMoviesHtml += Movie.format(movie);
-      }
-      allMoviesHtml += '</div>';
-      return allMoviesHtml;
+Movie.formatMany = function(movies, favIds = []) {
+    let html = '';
+    for (const movie of movies) {
+        html += Movie.format(movie, favIds);
+    }
+    return html;
 };
-
-await initTemplate();
 
 export { Movie };

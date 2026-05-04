@@ -380,13 +380,3 @@ Les variables et fonctions internes aux modules (exemple : `history` et `add()` 
 ╚═══════════════════════════════════════════════════════════════════════════════════╝
 ```
 
-### Synthèse des responsabilités par couche
-
-| Couche | Fichier(s) | Rôle | Ne fait jamais |
-|---|---|---|---|
-| **Contrôleur front** | `index.html` | Coordonne M et V, gère les événements | Appeler `fetch`, générer du HTML |
-| **Modèle front** | `data/*.js` | Dialogue avec l'API, retourne des objets JS | Manipuler le DOM, afficher |
-| **Vue front** | `component/*/` | Formate des données en HTML | Appeler le serveur, décider de la logique |
-| **Routeur serveur** | `script.php` | Route la requête selon `todo` | Valider, accéder à la BDD |
-| **Contrôleur serveur** | `controller.php` | Valide les paramètres, orchestre le modèle | Accéder directement à la BDD |
-| **Modèle serveur** | `model.php` | Exécute les requêtes SQL | Connaître la requête HTTP |

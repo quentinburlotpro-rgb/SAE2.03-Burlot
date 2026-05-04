@@ -2,16 +2,10 @@ let template;
 
 const Log = {};
 
-// Historique des logs - non exporté, interne au module du composant (encapsulation)
 let history = [];
 
-// Charge le template une seule fois au démarrage du module
-async function initTemplate() {
-  let templateFile = await fetch('./component/Log/template.html');
-  template = await templateFile.text();
-}
+template = await (await fetch('./component/Log/template.html')).text();
 
-// Ajoute un log à l'historique - non exporté, interne au module (encapsulation)
 let add = function(txt) {
   let d = new Date();
   let h = d.getHours();
@@ -22,7 +16,6 @@ let add = function(txt) {
   history.push(log);
 };
 
-// Formate l'historique en HTML - non exporté, interne au module (encapsulation)
 let formatHistory = function() {
   let html = "";
   if (history.length == 0) return html;
@@ -39,14 +32,11 @@ let formatHistory = function() {
   return html;
 };
 
-// Seule fonction publique du composant
 Log.format = function(txt) {
   add(txt);
   let html = template;
   html = html.replace("{{logs}}", formatHistory());
   return html;
 };
-
-await initTemplate();
 
 export {Log};

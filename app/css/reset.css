@@ -2,6 +2,9 @@
 *::after,
 *::before {
   box-sizing: border-box;
+  font-family: var(--ff-sans, sans-serif);
+  margin: 0;
+  padding: 0;
 }
 
 ul {

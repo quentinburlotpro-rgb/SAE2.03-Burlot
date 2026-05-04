@@ -5,14 +5,50 @@ if ( isset($_REQUEST['todo']) ){
   $todo = $_REQUEST['todo'];
   switch($todo){
 
-    case 'readmovies':
+    case 'readMovies':
       $data = readMoviesController();
       break;
 
-    case 'addmovie':
-      $data = addMovieController();
+    case 'readMovieDetail':
+      $data = readMovieDetailController();
       break;
 
+    case 'addMovie':
+      $data = addMovieController();
+      break;
+    
+    case 'readProfiles':
+      $data = readProfilesController();
+      break;
+
+    case 'saveProfile':
+      $data = saveProfileController();
+      break;
+
+    case 'addFavorite':
+      $data = addFavoriteController();
+      break;
+
+    case 'readFavorites':
+      $data = readFavoritesController();
+      break;
+
+    case 'removeFavorite':
+      $data = removeFavoriteController();
+      break;
+
+    case 'readFeaturedMovies':
+      $data = readFeaturedMoviesController();
+      break;
+
+    case 'readStats':
+      $data = readStatsController();
+      break;
+
+    case 'searchMovies':
+      $data = searchMoviesController();
+      break;
+      
     default:
       echo json_encode('[error] Unknown todo value');
       http_response_code(400);

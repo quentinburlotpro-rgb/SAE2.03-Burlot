@@ -5,50 +5,194 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/base.css" />
-    <link rel="stylesheet" href="./component/Movie/style.css" />
   </head>
 
-  <body>
-    <header id="header"></header>
+<body>
+    <div class="app-container">
+        <header id="header"></header>
+        <main class="main-column">
+          <div id="topbar-container"></div>
+          <section id="content"></section>
+        </main>
+    </div>
 
-    <section id="content"></section>
+<script type="module">
+    import { NavBar } from "./component/NavBar/script.js";
+    import { Topbar } from "./component/TopBar/script.js";
+    import { MovieCategory } from './component/MovieCategory/script.js';
+    import { MovieDetail } from './component/MovieDetail/script.js';
+    import { DataMovie } from "./data/dataMovie.js";
+    import { DataProfile } from "./data/dataProfile.js";
+    import { Featured } from './component/Featured/script.js';
+    import { Stats } from './component/Stats/script.js';
+    import { DataStats } from './data/dataStats.js';
 
-    <script type="module">
-      import { NavBar } from "./component/NavBar/script.js";
-      import { Movie } from "./component/Movie/script.js";
-      import { DataMovie } from "./data/dataMovie.js";
+    window.C = {};
+    window.V = {};
+    
+    window.currentView = "home"; 
 
-      window.C = {};
 
-      C.handlerAbout = function () {
-        alert(
-          "Ceci est une base de projet pour la SAE2.03 édition 2026. Bonne chance !"
-        );
-      };
+C.handlerHome = async function() {
+    window.currentView = "home";
+    
+    let ageLimit = DataProfile.getActiveAgeLimit();
+    
+    let featured = await DataMovie.requestFeatured(ageLimit);
+    let movies = await DataMovie.requestMovies(ageLimit);
+    V.renderHome(featured, movies, DataProfile.favoriteMovieIds);
+};
 
-      C.loadMovies = async function () {
-        const movies = await DataMovie.requestMovies();
-        V.renderMovies(movies);
-      };
 
-      C.start = function () {
-        V.renderNavBar("C.handlerAbout()");
-        C.loadMovies();
-      };
+    C.handlerFavorites = async function() {
+        window.currentView = "favorites";
+        let result = await DataProfile.getFavoritesForDisplay();
+        
+        if (result.error) {
+            alert(result.error);
+            return;
+        }
+        
+        if (result.empty) {
+            document.querySelector("#content").innerHTML = `<div class="empty-state"><p>${result.message}</p></div>`;
+            return;
+        }
+        
+        V.renderMovies(result.data, DataProfile.favoriteMovieIds);
+    };
 
-      window.V = {};
+    C.handlerSelectProfile = async function(profileId) {
+        let profile = await DataProfile.setActiveProfile(profileId);
+        V.updateAvatar(profile ? profile.avatar : null);
+        if (window.currentView === "favorites") {
+            C.handlerFavorites();
+        } else {
+            C.handlerHome();
+        }
+    };
 
-      V.renderNavBar = function (hAbout) {
+    C.handlerStats = async function() {
+        window.currentView = "stats";
+        V.renderStats(await DataStats.requestStats());
+    };
+
+    C.handlerToggleFavorite = async function(movieId) {
+        let result = await DataProfile.toggleFavoriteSafe(movieId);
+        if (result.error) {
+            alert(result.error);
+            return;
+        }
+        if (window.currentView === "favorites") {
+            C.handlerFavorites();
+        } else {
+            C.handlerHome();
+        }
+    };
+
+    C.handlerGetDetails = async function(movieId) {
+        let movie = await DataMovie.requestMovieDetail(movieId);
+        if (movie) {
+            V.renderMovieDetail(movie);
+        } else {
+            alert("Erreur lors du chargement des détails du film.");
+        }
+    };
+
+    C.handlerAbout = function() {
+        alert("Ceci est une base de projet pour la SAE2.03. Bonne chance !");
+    };
+
+    C.handlerLogout = function() {
+        document.querySelector("#topbarProfileSelect").value = "";
+        C.handlerSelectProfile("");
+    };
+
+    C.handlerSearch = async function(query) {
+        if (!query || query.trim() === "") return C.handlerHome();
+        
+        window.currentView = "search";
+        V.renderSearchResults(await DataMovie.search(DataProfile.getActiveAgeLimit(), query), query);
+    };
+
+
+
+
+
+
+    V.updateAvatar = function(avatarUrl) {
+        let img = document.querySelector("#currentAvatar");
+        let svg = document.querySelector("#defaultAvatarIcon");
+        
+        if (avatarUrl && avatarUrl !== "") {
+            img.src = '../server/profilePP/' + avatarUrl;
+            img.style.display = "block";
+            svg.style.display = "none";
+        } else {
+            img.style.display = "none";
+            svg.style.display = "block";
+        }
+    };
+
+    V.renderNavBar = function(hAbout, hHome, hFav, hStats) {
         let header = document.querySelector("#header");
-        header.innerHTML = NavBar.format(hAbout);
-      };
+        header.innerHTML = NavBar.format(hAbout, hHome, hFav, hStats);
+    };
 
-      V.renderMovies = function (movies) {
+    V.renderMovies = function(groupedMovies, favIds = []) {
         let content = document.querySelector("#content");
-        content.innerHTML = Movie.formatMany(movies);
-      };
+        if (!groupedMovies || groupedMovies.length === 0) {
+            content.innerHTML = `<div class="empty-state"><p>Aucun contenu trouvé.</p></div>`;
+            return;
+        }
+        content.innerHTML = MovieCategory.formatMany(groupedMovies, favIds);
+    };
 
-      C.start();
-    </script>
-  </body>
+    V.renderStats = function(data) {
+        document.querySelector("#content").innerHTML = Stats.format(data);
+        document.querySelector("#content").scrollTop = 0;
+    };
+
+    V.renderMovieDetail = function(movie) {
+        let content = document.querySelector("#content");
+        content.innerHTML = MovieDetail.format(movie);
+        content.scrollTop = 0;
+    };
+
+    V.renderTopbar = function(profiles, hProfile, hLogout) {
+        let topbarContainer = document.querySelector("#topbar-container");
+        topbarContainer.innerHTML = Topbar.format(profiles, hProfile, hLogout);
+    };
+
+    V.renderHome = function(featuredMovies, groupedMovies, favIds = []) {
+        let content = document.querySelector("#content");
+        
+        let html = Featured.format(featuredMovies);
+        
+        if (!groupedMovies || groupedMovies.length === 0) {
+            html += `<div class="empty-state"><p>Aucun contenu trouvé.</p></div>`;
+        } else {
+            html += MovieCategory.formatMany(groupedMovies, favIds);
+        }
+        
+        content.innerHTML = html;
+    };
+
+    V.renderSearchResults = function(movies, query) {
+        document.querySelector("#content").innerHTML = (!movies || movies.length === 0) 
+            ? `<div class="empty-state"><p>Aucun film ne correspond à votre recherche "${query}".</p></div>`
+            : MovieCategory.formatMany([{ category_name: `Résultats pour : "${query}"`, movies: movies }], DataProfile.favoriteMovieIds);
+        document.querySelector("#content").scrollTop = 0;
+    };
+
+    C.start = async function () {      
+        let profiles = await DataProfile.requestProfiles();
+        
+        V.renderNavBar("C.handlerAbout()", "C.handlerHome()", "C.handlerFavorites()", "C.handlerStats()");
+        V.renderTopbar(profiles, "C.handlerSelectProfile(this.value)", "C.handlerLogout()");
+        
+        C.handlerHome(); 
+    };
+    C.start();
+</script>
+</body>
 </html>

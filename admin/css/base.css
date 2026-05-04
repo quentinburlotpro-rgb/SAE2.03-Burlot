@@ -5,3 +5,48 @@
 @import "./utilities.css" layer(utilities);
 
 @import "../component/Log/style.css" layer(components);
+@import "../component/ProfileForm/style.css" layer(components);
+@import "../component/MovieForm/style.css" layer(components);
+
+
+body {
+  background: radial-gradient(circle at top center, #172554, var(--bg-app));
+  color: var(--text-main);
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.admin-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.admin-header h1 {
+  font-size: 32px;
+  margin: 0;
+  text-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+}
+
+.admin-header span {
+  color: var(--accent-color);
+}
+
+#log {
+  width: 100%;
+  max-width: 1100px;
+  margin-bottom: 20px;
+}
+
+#form {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+  max-width: 1100px;
+  flex-wrap: wrap; 
+  align-items: flex-start; 
+}

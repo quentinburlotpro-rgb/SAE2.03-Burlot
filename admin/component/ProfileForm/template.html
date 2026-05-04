@@ -1,0 +1,32 @@
+<form id="profileForm" class="admin-form" onsubmit="return false;">
+    <h2>{{formTitle}}</h2>
+
+    <label>Mode de saisie :</label>
+    <select id="profileSelector" onchange="C.handlerSelectProfile(this.value)">
+        <option value="">-- Créer un nouveau profil --</option>
+        {{profileOptions}}
+    </select>
+
+    <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 15px 0;">
+
+    <input type="hidden" name="id" value="{{id}}">
+
+    <label>Nom du profil :</label>
+    <input type="text" name="name" value="{{name}}" required>
+    
+    <label>URL de l'avatar :</label>
+    <input type="text" name="avatar" value="{{avatar}}">
+    
+    <label>Restriction d'âge :</label>
+    <select name="min_age">
+        <option value="0">Tout public</option>
+        <option value="3">3+</opion>
+        <option value="7">7+</option>
+        <option value="10">10+</option>
+        <option value="12">12+</option>
+        <option value="16">16+</option>
+        <option value="18">18+</option>    
+    </select>
+    
+    <input type="button" value="{{buttonText}}" onclick="{{handler}}">
+</form>

@@ -2,18 +2,16 @@ let template;
 
 const NavBar = {};
 
-// Charge le template une seule fois au démarrage du module
-async function initTemplate() {
-      let templateFile = await fetch("./component/NavBar/template.html");
-      template = await templateFile.text();
+template = await (await fetch("./component/NavBar/template.html")).text();
+
+NavBar.format = function(hAbout, hHome, hFav, hStats) {
+    let html = template;
+    html = html.replaceAll('{{handlerAbout}}', hAbout);
+    html = html.replaceAll('{{handlerHome}}', hHome);
+    html = html.replaceAll('{{handlerFavorites}}', hFav);
+    html = html.replaceAll('{{handlerStats}}', hStats);
+    
+    return html;
 }
-
-NavBar.format = function (hAbout) {
-  let html = template;
-  html = html.replace("{{hAbout}}", hAbout);
-  return html;
-};
-
-await initTemplate();
 
 export { NavBar };
