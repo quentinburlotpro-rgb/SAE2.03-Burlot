@@ -1,4 +1,4 @@
-const HOST_URL = "https://mmi.unilim.fr/~burlot4/SAE2.03-Burlot/serverOLD";
+const HOST_URL = "https://burlot-sae203.mmi-limoges.fr/serverOLD";
 
 const DataMovie = {};
 

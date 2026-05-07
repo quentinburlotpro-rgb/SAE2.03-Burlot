@@ -1,8 +1,8 @@
 <?php
-define("HOST", "mmi.unilim.fr");
-define("DBNAME", "burlot4");
-define("DBLOGIN", "burlot4");
-define("DBPWD", "burlot4");
+define("HOST", "localhost");
+define("DBNAME", "SAE203");
+define("DBLOGIN", "root");
+define("DBPWD", "a7fikti2Q9");
 
 function getPDO() {
     return new PDO('mysql:host='.HOST.';dbname='.DBNAME.';charset=utf8', DBLOGIN, DBPWD);
