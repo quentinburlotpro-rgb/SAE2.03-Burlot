@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>SAE2.03 ADMIN</title>
+    <link rel="stylesheet" href="./css/base.css" />
+    <link rel="stylesheet" href="./component/MovieForm/style.css" />
+    <link rel="stylesheet" href="./component/ProfileForm/style.css" />
+</head>
+<body>
+    <div class="admin-header">
+        <h1><span>Cine</span>+ - Administration</h1>
+    </div>
+
+    <section id="log"></section>
+    <section id="form"></section>
+
+    <script type="module">
+        import { Log } from "./component/Log/script.js";
+        import { MovieForm } from "./component/MovieForm/script.js";
+        import { ProfileForm } from "./component/ProfileForm/script.js";
+        import { DataMovie } from "./data/dataMovie.js";
+        import { DataProfile } from "./data/dataProfile.js";
+
+        window.C = {};
+        window.V = {};
+
+        C.handlerAddMovie = async function() {
+            V.renderLog("Envoi du film en cours...");
+            
+            if (await DataMovie.add(new FormData(document.querySelector("#movieForm")))) {
+                V.renderLog("Film ajouté avec succès !");
+                document.querySelector("#movieForm").reset();
+            }
+        };
+
+        C.handlerSelectProfile = function(id) {
+            V.renderLog(DataProfile.setCurrentEdit(id) 
+                ? "Mode modification activé pour : " + DataProfile.getCurrentEdit().name 
+                : "Mode création de profil activé.");
+            
+            V.renderForm();
+        };
+
+        C.handlerSaveProfile = async function() {
+            V.renderLog("Enregistrement du profil en cours...");
+            if (await DataProfile.save(new FormData(document.querySelector("#profileForm")))) {
+                V.renderLog("Profil enregistré avec succès.");
+                DataProfile.setCurrentEdit("");
+                V.renderForm();
+            } else {
+                V.renderLog("Erreur lors de l'enregistrement.");
+            }
+        };
+
+        V.renderForm = function() {
+            document.querySelector("#form").innerHTML = 
+                MovieForm.format("C.handlerAddMovie()") + 
+                ProfileForm.format("C.handlerSaveProfile()", DataProfile.getProfiles(), DataProfile.getCurrentEdit());
+        };
+
+        V.renderLog = function(txt) {
+            document.querySelector("#log").innerHTML = Log.format(txt);
+        };
+
+        C.start = async function() {
+            await DataProfile.requestProfiles();
+            V.renderForm();
+            V.renderLog("Application d'administration prête.");        
+        };
+
+        C.start();
+    </script>
+</body>
+</html>

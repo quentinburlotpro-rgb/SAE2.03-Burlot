@@ -1,73 +1,128 @@
-.sidebar {
-  width: 260px;
-  background-color: var(--bg-sidebar);
-  
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  
-  border: 1px solid rgba(255, 255, 255, 0.08); 
-  
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-float);
-  
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  box-sizing: border-box;
+.top-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 1rem;
+    z-index: 1000;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+    color: white;
 }
 
 .logo {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 50px;
-  letter-spacing: 1px;
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: -1px;
 }
-
 .logo span {
-  color: var(--accent-color);
-  text-shadow: 0 0 10px rgba(0, 229, 255, 0.4); 
+    color: white;
 }
 
 .nav-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: auto;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    margin-right: auto;
+    margin-left: 50px;
 }
 
 .nav-menu a {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  padding: 0.75rem 1rem;
-  border-radius: var(--radius-sm);
-  margin-left: -1rem;
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    position: relative;
+    transition: color 0.3s;
 }
 
-.nav-menu a:hover, .nav-menu a.active {
-  color: var(--accent-color);
-  background: rgba(0, 229, 255, 0.1);
-  font-weight: bold;
+.nav-menu a:hover {
+    color: rgb(255, 87, 95);
 }
 
-.nav-profile select {
-  width: 100%;
-  padding: 12px;
-  background: rgba(0,0,0,0.2);
-  color: white;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: var(--radius-sm);
-  margin-top: 10px;
-  outline: none;
-  cursor: pointer;
-  transition: border-color 0.3s;
+.nav-menu a::after {
+    content: '';
+    position: absolute;
+    top: 1.5rem;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0.25rem;
+    background-color: rgb(255, 87, 95);
+    transition: width 0.3s ease;
 }
 
-.nav-profile select:focus {
-  border-color: var(--accent-color);
+.nav-menu a:hover::after, 
+.nav-menu a.active::after {
+    width: 100%; 
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-icon-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+.nav-icon-btn:hover {
+    transform: scale(1.1);
+}
+
+
+.topbar-profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.profile-avatar {
+    padding: .5rem;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#currentAvatar, #defaultAvatarIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: cover;
+}
+
+#ProfileSelect {
+  background-color: transparent;
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+}
+#ProfileSelect option {
+    color:   white;
+}
+
+.logout-btn {
+    padding: .5rem;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: none;
+    cursor: pointer;
+    color: white;
 }

@@ -1,36 +1,28 @@
-<section class="stats-section">
-    <h2 class="category-title">Aperçu de la plateforme</h2>
+<section class="stats-container">
     <div class="stats-grid">
-        
         <div class="stat-card">
-            <div class="stat-icon" style="color: #00d2d3;">👥</div>
-            <h3>Profils créés</h3>
-            <p class="stat-value">{{total_profiles}}</p>
-        </div>
-        
-        <div class="stat-card">
-            <div class="stat-icon" style="color: #ff7675;">❤️</div>
-            <h3>Favoris par profil (Moy.)</h3>
-            <p class="stat-value">{{avg_favorites}}</p>
+                <span class="stat-label">Profils créés</span>
+                <span class="stat-number">{{total_profiles}}</span>
         </div>
 
         <div class="stat-card">
-            <div class="stat-icon" style="color: #a29bfe;">🎬</div>
-            <h3>Films au catalogue</h3>
-            <p class="stat-value">{{total_movies}}</p>
+                <span class="stat-label">Films disponibles</span>
+                <span class="stat-number">{{total_movies}}</span>
         </div>
 
-        <div class="stat-card stat-card-large">
-            <div class="stat-icon" style="color: #fdcb6e;">🏆</div>
-            <h3>Film le plus favori</h3>
-            <p class="stat-value text-fit">{{top_movie}}</p>
+        <div class="stat-card">
+                <span class="stat-label">Moyenne de favoris</span>
+                <span class="stat-number">{{avg_favorites}}</span>
         </div>
 
-        <div class="stat-card stat-card-large">
-            <div class="stat-icon" style="color: #55efc4;">🔥</div>
-            <h3>Catégorie préférée</h3>
-            <p class="stat-value text-fit">{{top_category}}</p>
+        <div class="stat-card featured-stat">
+                <span class="stat-label">Film le plus aimé</span>
+                <span class="stat-text">{{top_movie}}</span>
         </div>
 
+        <div class="stat-card featured-stat">
+                <span class="stat-label">Catégorie phare</span>
+                <span class="stat-text">{{top_category}}</span>
+        </div>
     </div>
 </section>

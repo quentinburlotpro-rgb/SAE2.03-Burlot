@@ -1,16 +1,15 @@
-let template;
-
 const NavBar = {};
-
+let template;
 template = await (await fetch("./component/NavBar/template.html")).text();
 
-NavBar.format = function(hAbout, hHome, hFav, hStats) {
+NavBar.format = function(profiles) {
     let html = template;
-    html = html.replaceAll('{{handlerAbout}}', hAbout);
-    html = html.replaceAll('{{handlerHome}}', hHome);
-    html = html.replaceAll('{{handlerFavorites}}', hFav);
-    html = html.replaceAll('{{handlerStats}}', hStats);
-    
+    let optionsHtml = '';
+    for (const p of profiles) {
+        optionsHtml += `<option value="${p.id}">${p.name}</option>`;
+    }
+    html = html.replace('{{profileOptions}}', optionsHtml);
+
     return html;
 }
 

@@ -1,0 +1,13 @@
+:root {
+  --ff-sans: system-ui, sans-serif;
+  --bg-app: #0B1120;
+  --bg-sidebar: rgba(30, 41, 59, 0.6);
+  --bg-element: #1E293B;
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --accent-color: #00E5FF;
+  --shadow-float: 0 15px 35px rgba(0, 0, 0, 0.4);
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-sm: 8px;
+}

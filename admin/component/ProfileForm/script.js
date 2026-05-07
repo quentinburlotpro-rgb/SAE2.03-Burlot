@@ -36,7 +36,10 @@ ProfileForm.format = function(handlerString, profiles, currentProfile = null) {
     let profileOptions = '';
     if (profiles) {
         for (let p of profiles) {
-            let selected = (currentProfile && currentProfile.id == p.id) ? "selected" : "";
+            let selected = "";
+            if (currentProfile && currentProfile.id == p.id) {
+                selected = "selected";
+            }
             profileOptions += `<option value="${p.id}" ${selected}>${p.name}</option>`;
         }
     }

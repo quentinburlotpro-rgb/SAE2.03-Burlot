@@ -1,16 +1,26 @@
-.category-section {
-  margin-bottom: 2rem;
-  margin-left: 1rem;
+.category-row {
+    padding: 2rem;
+    hoverflow: visible;
 }
 
-.category-section h2 {
-  font-size: 22px;
-  margin-bottom: 20px;
-  font-weight: 600;
+.category-row h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-.movies-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 20px;
+.carousel {
+display: flex;
+    gap: 1rem; 
+    scrollbar-width: none; 
+    max-width: 100%;
+    overflow-x: scroll;
+    overflow-y: visible;
+        padding: 2rem 0; 
+        margin: -2rem 0; 
+}
+
+.carousel::-webkit-scrollbar {
+    display: none;
 }

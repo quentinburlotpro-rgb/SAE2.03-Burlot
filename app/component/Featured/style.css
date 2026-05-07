@@ -1,132 +1,128 @@
-.featured-banner {
+.hero-banner {
     position: relative;
     width: 100%;
-    height: 450px; /* Grande hauteur pour l'immersion */
-    border-radius: 20px;
-    overflow: hidden;
-    margin-bottom: 40px;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    color: white;
 }
 
-/* L'image prend tout l'espace en arrière-plan */
-.featured-bg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.hero-vignette {
     position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0;
+    background: linear-gradient(to top, #141414 0%, transparent 40%),
+                linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
+    pointer-events: none;
 }
 
-/* Le dégradé sombre par-dessus l'image pour que le texte soit lisible */
-.featured-overlay {
+.hero-content {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-    background: linear-gradient(to right, rgba(20, 24, 30, 0.95) 0%, rgba(20, 24, 30, 0.5) 40%, rgba(20, 24, 30, 0.1) 100%),
-                linear-gradient(to top, rgba(20, 24, 30, 0.8) 0%, transparent 30%);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 30px 40px;
-    box-sizing: border-box;
+    bottom: 10%;
+    left: 4%;
+    width: 45%;
+    z-index: 10;
 }
 
-.featured-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    color: #fff;
-    align-self: flex-start; /* Garde le badge en haut */
-}
-
-/* Limite la largeur du texte à 50% de l'écran pour ne pas cacher l'image à droite */
-.featured-content {
-    max-width: 50%;
-}
-
-.featured-genres {
-    display: flex;
-    gap: 10px;
+.hero-badge-black {
+    background-color: black;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
     margin-bottom: 15px;
 }
 
-.genre-tag {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    padding: 4px 12px;
-    border-radius: 15px;
-    font-size: 0.85rem;
-    color: #fff;
-}
-
-.featured-title {
-    font-size: 3.5rem;
-    color: #fff;
+.hero-title {
+    font-size: 4.5rem;
+    font-weight: 900;
     margin: 0 0 15px 0;
-    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -1px;
 }
 
-.featured-desc {
-    color: rgba(255, 255, 255, 0.8);
+.hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.badge-age {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 4px 8px;
+    border-radius: 6px;
+    color: white;
+}
+
+.meta-text {
+    color: #e5e5e5;
+}
+
+.hero-description {
     font-size: 1.1rem;
     line-height: 1.5;
-    margin: 0 0 30px 0;
-    /* Coupe proprement le texte s'il dépasse 3 lignes */
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    margin-bottom: 30px;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
 }
 
-.featured-actions {
+.hero-actions {
     display: flex;
+    align-items: center;
     gap: 15px;
 }
 
-/* Le bouton blanc (Watch Now) */
-.btn-watch {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: #fff;
-    color: #000;
-    padding: 12px 24px;
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 30px;
     border-radius: 25px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: transform 0.2s;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
 }
 
-.btn-watch:hover {
+.btn-primary:hover {
+    background-color: var(--primary-color);
     transform: scale(1.05);
 }
 
-/* Le bouton transparent (Download) */
-.btn-download {
-    display: inline-flex;
+.btn-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    display: flex;
     align-items: center;
-    gap: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    color: #fff;
-    padding: 12px 24px;
-    border-radius: 25px;
-    text-decoration: none;
-    font-weight: 600;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: background 0.2s;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
-.btn-download:hover {
-    background: rgba(255, 255, 255, 0.15);
+.btn-icon svg {
+    pointer-events: none;
+    transition: fill 0.2s, stroke 0.2s;
+}
+
+.btn-icon:hover {
+    background-color: white;
+    color: black;
+    border-color: white;
+}
+
+.btn-icon.active {
+    background-color: white;
+    color: black;
+    border-color: white;
 }

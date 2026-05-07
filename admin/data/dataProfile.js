@@ -1,12 +1,9 @@
 const HOST_URL = "https://mmi.unilim.fr/~burlot4/SAE2.03-Burlot/server";
 
 const DataProfile = {
-
     profiles: [],
     currentProfileEdit: null
 };
-
-
 
 DataProfile.requestProfiles = async function() {
     let answer = await fetch(HOST_URL + "/script.php?todo=readProfiles");
@@ -19,7 +16,6 @@ DataProfile.save = async function (fdata) {
     let answer = await fetch(HOST_URL + "/script.php?todo=saveProfile", config);
     let result = await answer.json();
     
-
     if (result) {
         await DataProfile.requestProfiles();
     }
@@ -34,9 +30,16 @@ DataProfile.getCurrentEdit = function() {
     return DataProfile.currentProfileEdit;
 };
 
-
 DataProfile.setCurrentEdit = function(id) {
-    return DataProfile.currentProfileEdit = DataProfile.profiles.find(p => p.id == id);
+    let profilTrouve = null;
+
+    for (let profil of DataProfile.profiles) {
+        if (profil.id == id) {
+            profilTrouve = profil;
+        }
+    }
+    DataProfile.currentProfileEdit = profilTrouve;
+    return profilTrouve;
 };
 
 export { DataProfile };

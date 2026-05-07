@@ -8,7 +8,7 @@ const DataProfile = {
 
 DataProfile.requestProfiles = async function() {
     let answer = await fetch(HOST_URL + "/script.php?todo=readProfiles");
-    DataProfile.profiles = await answer.json(); 
+    DataProfile.profiles = await answer.json();
     return DataProfile.profiles;
 };
 
@@ -18,12 +18,7 @@ DataProfile.requestFavorites = async function(id_profile) {
 };
 
 DataProfile.addFavorite = async function(id_movie) {
-    let fdata = new FormData();
-    fdata.append('id_profile', DataProfile.activeProfileId);
-    fdata.append('id_movie', id_movie);
-    
-    let config = { method: "POST", body: fdata };
-    let answer = await fetch(HOST_URL + "/script.php?todo=addFavorite", config);
+    let answer = await fetch(HOST_URL + "/script.php?todo=addFavorite&id_profile=" + DataProfile.activeProfileId + "&id_movie=" + id_movie);
     let result = await answer.json();
     
     if (result) {
@@ -33,23 +28,19 @@ DataProfile.addFavorite = async function(id_movie) {
 };
 
 DataProfile.removeFavorite = async function(id_movie) {
-    let fdata = new FormData();
-    fdata.append('id_profile', DataProfile.activeProfileId);
-    fdata.append('id_movie', id_movie);
-    
-    let config = { method: "POST", body: fdata };
-    let answer = await fetch(`${HOST_URL}/script.php?todo=removeFavorite`, config);
+    let answer = await fetch(HOST_URL + "/script.php?todo=removeFavorite&id_profile=" + DataProfile.activeProfileId + "&id_movie=" + id_movie);
     let result = await answer.json();
     
     if (result) {
-        DataProfile.favoriteMovieIds = DataProfile.favoriteMovieIds.filter(id => id !== parseInt(id_movie));
+        let idNumber = parseInt(id_movie);
+        DataProfile.favoriteMovieIds = DataProfile.favoriteMovieIds.filter(id => id !== idNumber);
     }
     return result;
 };
 
 DataProfile.getActiveProfile = function() {
-    if (!DataProfile.activeProfileId) return null;
-    return DataProfile.profiles.find(p => p.id == DataProfile.activeProfileId);
+    let profile = DataProfile.profiles.find(p => p.id == DataProfile.activeProfileId);
+    return profile ? profile : null;
 };
 
 DataProfile.getActiveAgeLimit = function() {
@@ -58,55 +49,40 @@ DataProfile.getActiveAgeLimit = function() {
 };
 
 DataProfile.setActiveProfile = async function(profileId) {
-    if (!profileId || profileId === "") {
-        DataProfile.activeProfileId = null;
-        DataProfile.favoriteMovieIds = [];
-        return null;
-    }
-    
-    DataProfile.activeProfileId = profileId;
+    DataProfile.activeProfileId = profileId ? profileId : null;
     DataProfile.favoriteMovieIds = [];
     
+    if (!profileId) return null;
+    
     let favs = await DataProfile.requestFavorites(profileId);
-    if (favs && favs.length > 0 && favs[0].movies) {
-        DataProfile.favoriteMovieIds = favs[0].movies.map(m => parseInt(m.id));
+    
+    if (favs && favs[0] && favs[0].movies) {
+        for (let movie of favs[0].movies) {
+            DataProfile.favoriteMovieIds.push(parseInt(movie.id));
+        }
     }
+    
     return DataProfile.getActiveProfile();
 };
 
-
-DataProfile.toggleFavoriteSafe = async function(movieId) {
-    if (!DataProfile.activeProfileId) {
-        return { error: "Veuillez d'abord sélectionner un profil !" };
-    }
-    
+DataProfile.toggleFavorite = async function(movieId) {
     let id = parseInt(movieId);
-    
     if (DataProfile.favoriteMovieIds.includes(id)) {
-        let success = await DataProfile.removeFavorite(id);
-        return success 
-            ? { success: true, action: "removed", message: "Le film a été retiré de vos favoris." } 
-            : { error: "Erreur lors de la suppression." };
+        return await DataProfile.removeFavorite(id);
     } else {
-        let success = await DataProfile.addFavorite(id);
-        return success 
-            ? { success: true, action: "added", message: "Le film a été ajouté à vos favoris." } 
-            : { error: "Erreur lors de l'ajout." };
+        return await DataProfile.addFavorite(id);
     }
 };
 
-DataProfile.getFavoritesForDisplay = async function() {
-    if (!DataProfile.activeProfileId) {
-        return { error: "Veuillez d'abord sélectionner un profil pour voir vos favoris !" };
-    }
+DataProfile.getFullFavorites = async function() {
+    if (!DataProfile.activeProfileId) return null;
     
     let favs = await DataProfile.requestFavorites(DataProfile.activeProfileId);
     
-    if (favs && favs.length > 0 && favs[0].movies && favs[0].movies.length > 0) {
-        return { data: [{ category_name: "Mes Favoris", movies: favs[0].movies }] };
+    if (favs && favs[0] && favs[0].movies) {
+        return favs[0].movies;
     }
-    
-    return { empty: true, message: "Votre liste de favoris est vide." };
+    return [];
 };
 
 export { DataProfile };

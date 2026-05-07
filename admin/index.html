@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="admin-header">
-        <h1><span>Cine</span>+ - Administration</h1>
+        <h1><span>TV</span>4 - Administration</h1>
     </div>
 
     <section id="log"></section>
@@ -28,35 +28,63 @@
         C.handlerAddMovie = async function() {
             V.renderLog("Envoi du film en cours...");
             
-            if (await DataMovie.add(new FormData(document.querySelector("#movieForm")))) {
+            let formData = V.getMovieFormData();
+            if (await DataMovie.add(formData)) {
                 V.renderLog("Film ajouté avec succès !");
-                document.querySelector("#movieForm").reset();
+                V.resetMovieForm();
             }
         };
 
         C.handlerSelectProfile = function(id) {
-            V.renderLog(DataProfile.setCurrentEdit(id) 
-                ? "Mode modification activé pour : " + DataProfile.getCurrentEdit().name 
-                : "Mode création de profil activé.");
+            let currentProfile = DataProfile.setCurrentEdit(id);
             
-            V.renderForm();
+            if (currentProfile) {
+                V.renderLog("Mode modification activé pour : " + currentProfile.name);
+            } else {
+                V.renderLog("Mode création de profil activé.");
+            }
+            
+            let profiles = DataProfile.getProfiles();
+            let currentEdit = DataProfile.getCurrentEdit();
+            V.renderForm(profiles, currentEdit);
         };
 
         C.handlerSaveProfile = async function() {
             V.renderLog("Enregistrement du profil en cours...");
-            if (await DataProfile.save(new FormData(document.querySelector("#profileForm")))) {
+            
+            let formData = V.getProfileFormData();
+            if (await DataProfile.save(formData)) {
                 V.renderLog("Profil enregistré avec succès.");
                 DataProfile.setCurrentEdit("");
-                V.renderForm();
+                
+                await DataProfile.requestProfiles();
+                let profiles = DataProfile.getProfiles();
+                let currentEdit = DataProfile.getCurrentEdit();
+                V.renderForm(profiles, currentEdit);
             } else {
                 V.renderLog("Erreur lors de l'enregistrement.");
             }
         };
 
-        V.renderForm = function() {
+        V.getMovieFormData = function() {
+            let form = document.querySelector("#movieForm");
+            return form ? new FormData(form) : new FormData();
+        };
+
+        V.resetMovieForm = function() {
+            let form = document.querySelector("#movieForm");
+            if (form) form.reset();
+        };
+
+        V.getProfileFormData = function() {
+            let form = document.querySelector("#profileForm");
+            return form ? new FormData(form) : new FormData();
+        };
+
+        V.renderForm = function(profiles, currentEdit) {
             document.querySelector("#form").innerHTML = 
                 MovieForm.format("C.handlerAddMovie()") + 
-                ProfileForm.format("C.handlerSaveProfile()", DataProfile.getProfiles(), DataProfile.getCurrentEdit());
+                ProfileForm.format("C.handlerSaveProfile()", profiles, currentEdit);
         };
 
         V.renderLog = function(txt) {
@@ -65,7 +93,10 @@
 
         C.start = async function() {
             await DataProfile.requestProfiles();
-            V.renderForm();
+            let profiles = DataProfile.getProfiles();
+            let currentEdit = DataProfile.getCurrentEdit();
+            
+            V.renderForm(profiles, currentEdit);
             V.renderLog("Application d'administration prête.");        
         };
 

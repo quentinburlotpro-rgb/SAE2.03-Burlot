@@ -2,53 +2,41 @@
 require_once 'model.php';
 
 function readMoviesController() {
-    $age = isset($_GET['age']) ? intval($_GET['age']) : 0;
-    $rawMovies = getMovies($age);
+    if (!isset($_GET['age'])) return false;
     
-    if (!$rawMovies) return [];
+    $rawMovies = getMovies($_GET['age']);
+    if ($rawMovies === false) return false;
     
     $grouped = [];
     foreach ($rawMovies as $movie) {
         $catName = $movie['category_name'];
         if (!isset($grouped[$catName])) {
-            $grouped[$catName] = ['category_name' => $catName, 'movies' => []];
+            $grouped[$catName] = [
+                'category_name' => $catName, 
+                'movies' => []
+            ];
         }
-        $grouped[$catName]['movies'][] = [
-            'id' => $movie['id'],
-            'name' => $movie['name'],
-            'image' => $movie['image']
-        ];
+        $grouped[$catName]['movies'][] = $movie;
     }
     return array_values($grouped);
 }
 
 function readMovieDetailController() {
-    if (!isset($_REQUEST['id']) || empty($_REQUEST['id'])) return false;
-    return getMovieDetail($_REQUEST['id']);
+    if (!isset($_GET['id'])) return false;
+    return getMovieDetail($_GET['id']);
 }
 
 function addMovieController() {
-    $fields = ['name', 'director', 'year', 'length', 'description', 'id_category', 'image', 'min_age'];
-    foreach ($fields as $f) {
-        if (!isset($_POST[$f]) || empty($_POST[$f])) return false;
+    if (!isset($_POST['name']) || !isset($_POST['director']) || !isset($_POST['year']) || 
+        !isset($_POST['length']) || !isset($_POST['description']) || !isset($_POST['id_category']) || 
+        !isset($_POST['image']) || !isset($_POST['trailer']) || !isset($_POST['min_age'])) {
+        return false;
     }
-
     return addMovie(
         $_POST['name'], $_POST['director'], $_POST['year'], 
         $_POST['length'], $_POST['description'], $_POST['id_category'], 
-        $_POST['image'], $_POST['trailer'] ?? null, $_POST['min_age']
+        $_POST['image'], $_POST['trailer'], $_POST['min_age']
     );
-}
-
-function addProfileController() {
-    if (!isset($_POST['name']) || empty($_POST['name'])) return false;
-    if (!isset($_POST['min_age'])) return false;
-
-    $name = $_POST['name'];
-    $avatar = $_POST['avatar'] ?? null;
-    $min_age = $_POST['min_age'];
-
-    return addProfile($name, $avatar, $min_age);
 }
 
 function readProfilesController() {
@@ -56,40 +44,36 @@ function readProfilesController() {
 }
 
 function saveProfileController() {
-    if (!isset($_POST['name']) || empty($_POST['name'])) return false;
-    if (!isset($_POST['min_age'])) return false;
-
-    $id = $_POST['id'] ?? null;
-    $name = $_POST['name'];
-    $avatar = $_POST['avatar'] ?? null;
-    $min_age = $_POST['min_age'];
-
-    return saveProfile($id, $name, $avatar, $min_age);
+    if (!isset($_POST['name']) || !isset($_POST['avatar']) || !isset($_POST['min_age'])) {
+        return false;
+    }
+    $id = isset($_POST['id']) ? $_POST['id'] : "";
+    return saveProfile($id, $_POST['name'], $_POST['avatar'], $_POST['min_age']);
 }
 
 function addFavoriteController() {
-    if (!isset($_POST['id_profile']) || !isset($_POST['id_movie'])) return false;
-    return addFavorite($_POST['id_profile'], $_POST['id_movie']);
+    if (!isset($_GET['id_profile']) || !isset($_GET['id_movie'])) return false;
+    return addFavorite($_GET['id_profile'], $_GET['id_movie']);
 }
 
 function removeFavoriteController() {
-    if (!isset($_POST['id_profile']) || !isset($_POST['id_movie'])) return false;
-    return removeFavorite($_POST['id_profile'], $_POST['id_movie']);
+    if (!isset($_GET['id_profile']) || !isset($_GET['id_movie'])) return false;
+    return removeFavorite($_GET['id_profile'], $_GET['id_movie']);
 }
 
 function readFavoritesController() {
-    $profile = isset($_GET['profile']) ? intval($_GET['profile']) : 0;
-    if ($profile === 0) return [];
+    if (!isset($_GET['profile'])) return false;
     
-    $rawMovies = getFavorites($profile);
-    if (!$rawMovies) return [];
-    
-    return [['category_name' => 'Mes Favoris', 'movies' => $rawMovies]];
+    $rawMovies = getFavorites($_GET['profile']);
+    if ($rawMovies) {
+        return [['category_name' => 'Mes Favoris', 'movies' => $rawMovies]];
+    }
+    return [];
 }
 
 function readFeaturedMoviesController() {
-    $age = isset($_GET['age']) ? intval($_GET['age']) : 18;
-    return getFeaturedMovies($age);
+    if (!isset($_GET['age'])) return false;
+    return getFeaturedMovies($_GET['age']);
 }
 
 function readStatsController() {
@@ -97,7 +81,6 @@ function readStatsController() {
 }
 
 function searchMoviesController() {
-    $age = isset($_GET['age']) ? intval($_GET['age']) : 18;
-    $query = isset($_GET['q']) ? $_GET['q'] : '';
-    return searchMovies($age, $query);
+    if (!isset($_GET['age']) || !isset($_GET['q'])) return false;
+    return searchMovies($_GET['age'], $_GET['q']);
 }

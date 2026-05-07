@@ -1,0 +1,104 @@
+<form class="admin-form" id="movieForm" onsubmit="return false;">
+  <h2>Ajouter un film</h2>
+    <label for="name" class="form-label">Titre du film *</label>
+    <input 
+      type="text" 
+      id="name" 
+      name="name" 
+      class="form-input" 
+      required
+      placeholder="Ex: Inception"
+    />
+
+    <label for="director" class="form-label">Réalisateur *</label>
+    <input 
+      type="text" 
+      id="director" 
+      name="director" 
+      class="form-input" 
+      required
+      placeholder="Ex: Christopher Nolan"
+    />
+
+      <label for="year" class="form-label">Année de sortie *</label>
+      <input 
+        type="number" 
+        id="year" 
+        name="year" 
+        class="form-input" 
+        required
+        min="1900"
+        max="2100"
+        placeholder="Ex: 2010"
+      />
+
+      <label for="length" class="form-label">Durée *</label>
+      <input 
+        type="number" 
+        id="length" 
+        name="length" 
+        class="form-input" 
+        required
+        min="1"
+        placeholder="Ex: 148"
+      />
+
+      <label for="min_age" class="form-label">Restriction d'âge *</label>
+      <input 
+        type="number" 
+        id="min_age" 
+        name="min_age" 
+        class="form-input" 
+        required
+        min="0"
+        max="18"
+        placeholder="Ex: 12"
+      />
+
+    <label for="description" class="form-label">Description *</label>
+    <textarea 
+      id="description" 
+      name="description" 
+      class="form-textarea" 
+      required
+      rows="4"
+      placeholder="Décrivez le film..."
+    ></textarea>
+
+    <label for="id_category" class="form-label">Catégorie *</label>
+    <select id="id_category" name="id_category" class="form-select" required>
+      <option value="">-- Sélectionnez une catégorie --</option>
+      <option value="1">Action</option>
+      <option value="2">Comédie</option>
+      <option value="3">Drame</option>
+      <option value="4">Science-fiction</option>
+      <option value="5">Animation</option>
+      <option value="6">Thriller</option>
+      <option value="7">Horreur</option>
+      <option value="8">Aventure</option>
+      <option value="9">Fantaisie</option>
+      <option value="10">Documentaire</option>
+    </select>
+
+    <label for="image" class="form-label">Nom du fichier de l'affiche *</label>
+    <input 
+      type="text" 
+      id="image" 
+      name="image" 
+      class="form-input" 
+      required
+      placeholder="Ex: inception.jpg"
+    />
+
+    <label for="trailer" class="form-label">URL du trailer *</label>
+    <input 
+    
+      type="url" 
+      id="trailer" 
+      name="trailer" 
+      class="form-input"
+      placeholder="Ex: https://www.youtube.com/embed/..."
+    />
+
+    <input type="button" value="Ajouter le film" onclick="{{handler}}">
+</form>

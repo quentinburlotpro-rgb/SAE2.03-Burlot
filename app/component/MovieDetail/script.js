@@ -1,8 +1,10 @@
 let template = await (await fetch("./component/MovieDetail/template.html")).text();
 const MovieDetail = {};
 
-MovieDetail.format = function(movie) {
+MovieDetail.format = function(movie, favIds = []) {
+  let isFav = favIds.includes(parseInt(movie.id));
   let html = template;
+  html = html.replaceAll("{{id}}", movie.id);
   html = html.replaceAll("{{name}}", movie.name);
   html = html.replaceAll("{{image}}", movie.image);
   html = html.replaceAll("{{director}}", movie.director);
@@ -12,6 +14,9 @@ MovieDetail.format = function(movie) {
   html = html.replaceAll("{{min_age}}", movie.min_age);
   html = html.replaceAll("{{description}}", movie.description);
   html = html.replaceAll("{{trailer}}", movie.trailer);
+  html = html.replace('{{favClass}}', isFav ? "active" : "");
+  html = html.replace('{{fillColor}}', isFav ? "rgb(0, 0, 0)" : "none");   
+
   return html;
 };
 

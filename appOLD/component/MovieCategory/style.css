@@ -1,0 +1,16 @@
+.category-section {
+  margin-bottom: 2rem;
+  margin-left: 1rem;
+}
+
+.category-section h2 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}

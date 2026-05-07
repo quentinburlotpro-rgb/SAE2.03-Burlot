@@ -1,5 +1,6 @@
 import { Movie } from '../Movie/script.js';
 let template = await (await fetch("./component/MovieCategory/template.html")).text();
+console.log(fetch("./component/MovieCategory/template.html"));
 
 const MovieCategory = {};
 
@@ -9,6 +10,8 @@ MovieCategory.format = function(categoryData, favIds = []) {
     html = html.replace('{{movies_list}}', Movie.formatMany(categoryData.movies, favIds));
     return html;
 };
+
+
 
 MovieCategory.formatMany = function(categories, favIds = []) {
     let html = '';

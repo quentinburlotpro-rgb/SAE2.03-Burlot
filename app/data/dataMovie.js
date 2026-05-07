@@ -9,7 +9,6 @@ DataMovie.requestMovies = async function(age = 0) {
 
 DataMovie.requestMovieDetail = async function(id) {
     let answer = await fetch(HOST_URL + "/script.php?todo=readMovieDetail&id=" + id);
-    
     return await answer.json();
 };
 
@@ -19,7 +18,8 @@ DataMovie.requestFeatured = async function(ageLimit) {
 };
 
 DataMovie.search = async function(ageLimit, query) {
-    return await (await fetch(`${HOST_URL}/script.php?todo=searchMovies&age=${ageLimit}&q=${encodeURIComponent(query)}`)).json();
+    let answer = await fetch(HOST_URL + "/script.php?todo=searchMovies&age=" + ageLimit + "&q=" + encodeURIComponent(query));
+    return await answer.json();
 };
 
 export { DataMovie };
