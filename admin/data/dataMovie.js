@@ -1,6 +1,6 @@
-let HOST_URL = "https://mmi.unilim.fr/~burlot4/SAE2.03-Burlot/server";
+const HOST_URL = "https://mmi.unilim.fr/~burlot4/SAE2.03-Burlot/server";
 
-let DataMovie = {};
+const DataMovie = {};
 
 DataMovie.add = async function (fdata) {
     let config = {

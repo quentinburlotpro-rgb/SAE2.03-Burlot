@@ -7,6 +7,7 @@
     flex: 0 0 auto;
     width: 20rem; 
     aspect-ratio: 16 / 9;
+    scroll-snap-align: start;
     border-radius: 1rem;
     overflow: hidden;
     transition: transform 0.3s ease;
@@ -40,7 +41,7 @@
     gap: .5rem;    
     align-items: center;
     background-color: #00000085;
-    backdrop-filter: blur(100px);
+    backdrop-filter: blur(6.25rem);
     padding: 0.5rem;
     opacity: 0;
     font-size: 0.8rem;
@@ -72,7 +73,7 @@
     padding: .8rem;
     border-radius: 50%;
     background-color: #00000085;
-    backdrop-filter: blur(100px);
+    backdrop-filter: blur(6.25rem);
     border: none;
     color: white;
     cursor: pointer;
@@ -96,4 +97,26 @@
 
 .fav-btn svg {
     pointer-events: none;
+}
+
+@media screen and (max-width: 64rem) {
+    .movie-card {
+        width: 18rem;
+    }
+}
+
+@media screen and (max-width: 48rem) {
+    .movie-card {
+        width: 16rem;
+    }
+
+    .movie-overlay {
+        font-size: 0.75rem;
+    }
+}
+
+@media screen and (max-width: 36rem) {
+    .movie-card {
+        width: 14rem;
+    }
 }

@@ -14,27 +14,27 @@
 
 .search-input {
   width: 100%;
-  padding: 12px 45px 12px 20px; 
-  border-radius: 50px;
+  padding: 1rem 3rem 1rem 1rem; 
+  border-radius: 3rem;
   background-color: var(--bg-sidebar); 
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(1rem);
+  -webkit-backdrop-filter: blur(1rem);
+  border: 1rem solid rgba(255, 255, 255, 0.08);
   color: var(--text-main);
-  font-size: 15px;
+  font-size: 1rem;
   outline: none;
   transition: all 0.3s;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 1rem 1rem rgba(0,0,0,0.1);
 }
 
 .search-input:focus {
   border-color: var(--accent-color);
-  box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+  box-shadow: 0 0 1rem rgba(0, 229, 255, 0.2);
 }
 
 .search-icon {
   position: absolute;
-  right: 18px;
+  right: 1rem;
   top: 50%;
   transform: translateY(-50%);
   color: var(--text-muted);
@@ -43,13 +43,13 @@
 .topbar-profile {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 1rem;
   background-color: var(--bg-sidebar);
-  backdrop-filter: blur(16px);
-  padding: 6px 15px 6px 6px;
-  border-radius: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  backdrop-filter: blur(1rem);
+  padding: 1rem 1rem 1rem 1rem;
+  border-radius: 3rem;
+  border: 1rem solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 1rem 1rem rgba(0,0,0,0.1);
   transition: border-color 0.3s;
 }
 
@@ -58,8 +58,8 @@
 }
 
 .profile-avatar {
-  width: 34px;
-  height: 34px;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--accent-color), #0056b3);
   color: #0B1120;
@@ -73,7 +73,7 @@
   color: var(--text-main);
   border: none;
   outline: none;
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
 }
@@ -87,17 +87,17 @@
   color: var(--text-main);
   border: none;
   outline: none;
-  font-size: 15px;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   
-  padding-right: 25px; 
+  padding-right: 2rem; 
 }
 
 .topbar-profile select option {
   background-color: var(--bg-app); 
   color: var(--text-main);
-  font-size: 15px;
+  font-size: 1rem;
   font-weight: 500; 
 }
 
@@ -110,24 +110,24 @@
 .topbar-right {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 1rem;
 }
 
 .logout-btn {
     background-color: var(--bg-sidebar);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(1rem);
+    -webkit-backdrop-filter: blur(1rem);
+    border: 1rem solid rgba(255, 255, 255, 0.08);
     color: var(--text-muted);
-    width: 44px;
-    height: 44px;
+    width: 3rem;
+    height: 3rem;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 1rem 1rem rgba(0,0,0,0.1);
 }
 
 .logout-btn:hover {

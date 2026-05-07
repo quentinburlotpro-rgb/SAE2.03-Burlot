@@ -9,26 +9,26 @@
 }
 
 .movie-trailer-section {
-    padding: 60px 4%;
+    padding: 3.75rem 4%;
     background-color: #141414;
     color: white;
 }
 
 .movie-trailer-section h2 {
     font-size: 2rem;
-    margin-bottom: 25px;
+    margin-bottom: 1.5rem;
     font-weight: bold;
 }
 
 .iframe-container {
     position: relative;
     width: 100%;
-    max-width: 1000px;
+    max-width: 62.5rem;
     aspect-ratio: 16 / 9;
     background-color: #000;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 0.5rem 2rem rgba(0,0,0,0.5);
 }
 
 .iframe-container iframe {
@@ -40,11 +40,27 @@
     border: none;
 }
 
-@media (max-width: 900px) {
-    .hero-content {
-        width: 80%;
+@media screen and (max-width: 56.25rem) {
+    .movie-trailer-section {
+        padding: 2.5rem 2rem;
     }
-    .hero-title {
-        font-size: 3rem;
+
+    .movie-trailer-section h2 {
+        font-size: 1.75rem;
+    }
+
+    .iframe-container {
+        max-width: 100%;
+        border-radius: 0.75rem;
+    }
+}
+
+@media screen and (max-width: 36rem) {
+    .movie-trailer-section {
+        padding: 2rem 1rem;
+    }
+
+    .movie-trailer-section h2 {
+        font-size: 1.5rem;
     }
 }

@@ -1,16 +1,16 @@
 .sidebar {
-  width: 260px;
+  width: 16rem;
   background-color: var(--bg-sidebar);
   
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(1rem);
+  -webkit-backdrop-filter: blur(1rem);
   
-  border: 1px solid rgba(255, 255, 255, 0.08); 
+  border: 1rem solid rgba(255, 255, 255, 0.08); 
   
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-float);
   
-  padding: 30px;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -20,13 +20,13 @@
 .logo {
   font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 50px;
-  letter-spacing: 1px;
+  margin-bottom: 3rem;
+  letter-spacing: 1rem;
 }
 
 .logo span {
   color: var(--accent-color);
-  text-shadow: 0 0 10px rgba(0, 229, 255, 0.4); 
+  text-shadow: 0 0 1rem rgba(0, 229, 255, 0.4); 
 }
 
 .nav-menu {
@@ -57,12 +57,12 @@
 
 .nav-profile select {
   width: 100%;
-  padding: 12px;
+  padding: 1rem;
   background: rgba(0,0,0,0.2);
   color: white;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1rem solid rgba(255,255,255,0.1);
   border-radius: var(--radius-sm);
-  margin-top: 10px;
+  margin-top: 1rem;
   outline: none;
   cursor: pointer;
   transition: border-color 0.3s;

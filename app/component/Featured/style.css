@@ -31,16 +31,16 @@
     color: white;
     font-size: 0.8rem;
     font-weight: bold;
-    padding: 4px 8px;
+    padding: 0.25rem 0.5rem;
     border-radius: 4px;
     display: inline-block;
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
 }
 
 .hero-title {
     font-size: 4.5rem;
     font-weight: 900;
-    margin: 0 0 15px 0;
+    margin: 0 0 1rem 0;
     line-height: 1.1;
     letter-spacing: -1px;
 }
@@ -48,15 +48,15 @@
 .hero-meta {
     display: flex;
     align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
     font-size: 1rem;
     font-weight: bold;
 }
 
 .badge-age {
     background-color: rgba(255, 255, 255, 0.2);
-    padding: 4px 8px;
+    padding: 0.25rem 0.5rem;
     border-radius: 6px;
     color: white;
 }
@@ -68,7 +68,7 @@
 .hero-description {
     font-size: 1.1rem;
     line-height: 1.5;
-    margin-bottom: 30px;
+    margin-bottom: 2rem;
     color: #fff;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
 }
@@ -76,15 +76,15 @@
 .hero-actions {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 1rem;
 }
 
 .btn-primary {
-    background-color: var(--primary-color);
+    background-color: var(--primary-color, #e50914);
     color: white;
     border: none;
-    padding: 12px 30px;
-    border-radius: 25px;
+    padding: 0.75rem 2rem;
+    border-radius: 1.5rem;
     font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
@@ -92,13 +92,13 @@
 }
 
 .btn-primary:hover {
-    background-color: var(--primary-color);
+    background-color: var(--primary-color, #e50914);
     transform: scale(1.05);
 }
 
 .btn-icon {
-    width: 44px;
-    height: 44px;
+    width: 2.75rem;
+    height: 2.75rem;
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.4);
@@ -115,14 +115,77 @@
     transition: fill 0.2s, stroke 0.2s;
 }
 
-.btn-icon:hover {
+.btn-icon:hover, .btn-icon.active {
     background-color: white;
     color: black;
     border-color: white;
 }
 
-.btn-icon.active {
-    background-color: white;
-    color: black;
-    border-color: white;
+@media screen and (max-width: 64rem) {
+    .hero-content {
+        width: 55%;
+        left: 3%;
+        bottom: 8%;
+    }
+
+    .hero-title {
+        font-size: 3.2rem;
+    }
+
+    .hero-meta {
+        gap: 0.75rem;
+        font-size: 0.95rem;
+    }
+
+    .btn-primary {
+        padding: 0.75rem 1.75rem;
+    }
+
+    .btn-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+}
+
+@media screen and (max-width: 48rem) {
+    .hero-content {
+        width: 90%;
+        bottom: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .hero-title {
+        font-size: 2.3rem;
+    }
+
+    .hero-meta {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+    }
+
+
+
+    .btn-primary {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 36rem) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-banner {
+        height: 85vh; 
+    }
+    
+    .hero-content {
+        bottom: 12%; 
+    }
 }

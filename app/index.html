@@ -11,7 +11,65 @@
     <div class="app-container">
         <header id="header"></header>
         <main id="content"></main>
+        <footer class="app-footer">
+            <div class="footer-links-grid">
+                <div class="footer-column">
+                    <h4>Liens rapides</h4>
+                    <ul>
+                        <li><a href="#">Programme A-Z</a></li>
+                        <li><a href="#">Interprète TV4</a></li>
+                        <li><a href="#">Toutes les catégories</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Aide</h4>
+                    <ul>
+                        <li><a href="#">Conditions générales d'utilisation</a></li>
+                        <li><a href="#">Questions du programme</a></li>
+                        <li><a href="#">Questions techniques</a></li>
+                        <li><a href="#">Questions de connexion</a></li>
+                        <li><a href="#">Accessibilité</a></li>
+                        <li><a href="#">Laissez des commentaires/demandes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Mon TV4 Play</h4>
+                    <ul>
+                        <li><a href="#">Créer un compte</a></li>
+                        <li><a href="#">Connectez-vous à votre téléviseur</a></li>
+                        <li><a href="#">Mot de passe oublié</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Autre</h4>
+                    <ul>
+                        <li><a href="#">Annoncer dans TV4</a></li>
+                        <li><a href="#">À propos de nous</a></li>
+                        <li><a href="#">À propos des cookies</a></li>
+                        <li><a href="#">Paramètres de cookie</a></li>
+                        <li><a href="#">Politique de confidentialité</a></li>
+                        <li><a href="#">Contact TV4</a></li>
+                        <li><a href="#">Emplois vacants</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Visite aussi</h4>
+                    <ul>
+                        <li><a href="#">tv4.se</a></li>
+                        <li><a href="#">cuisine.co.uk</a></li>
+                        <li><a href="#">Catégorie: Chaîne de football.se</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <a href="#" class="footer-responsible">Éditeurs responsables</a>
+                <p>© 2026 TV4 | Org. no. 556242-7152</p>
+            </div>
+        </footer>
     </div>
+    
+
 
 <script type="module">
     import { NavBar } from "./component/NavBar/script.js";
@@ -209,11 +267,13 @@
     V.renderHome = function(featured, movies) {
         let content = document.querySelector("#content");
         content.innerHTML = Featured.format(featured, DataProfile.favoriteMovieIds) + MovieCategory.formatMany(movies, DataProfile.favoriteMovieIds);
+        MovieCategory.init();
     };
 
     V.renderMovies = function(groupedMovies, favIds = []) {
         let content = document.querySelector("#content");
         content.innerHTML = MovieCategory.formatMany(groupedMovies, favIds);
+        MovieCategory.init();
     };
 
     V.renderStats = function(data) {

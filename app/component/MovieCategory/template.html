@@ -1,6 +1,12 @@
 <section class="category-row">
-    <h2>{{category_name}}</h2>
-    <div class="carousel" id="carousel-container">
+    <div class="category-header">
+        <h2>{{category_name}}</h2>
+        <div class="carousel-controls">
+            <button class="carousel-button carousel-prev" type="button" aria-label="Précédent">‹</button>
+            <button class="carousel-button carousel-next" type="button" aria-label="Suivant">›</button>
+        </div>
+    </div>
+    <div class="carousel">
         {{movies_list}}
     </div>
 </section>
